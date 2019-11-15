@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dhm.mapper.FileMapper">
+    <resultMap id="fileCacheInfoEntity" type="com.dhm.model.FileCacheInfoEntity">
+        <result property="redisKey" column="redis_key" jdbcType="VARCHAR"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="port" column="port" jdbcType="VARCHAR"/>
+        <result property="storePath" column="store_path" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
+        <result property="pdfState" column="pdf_state" jdbcType="VARCHAR"/>
+        <result property="imageState" column="image_state" jdbcType="VARCHAR"/>
+        <result property="pdfStorePath" column="pdf_store_path" jdbcType="VARCHAR"/>
+        <result property="watermarkState" column="watermark_state" jdbcType="VARCHAR"/>
+        <result property="watermarkPath" column="watermark_path" jdbcType="VARCHAR"/>
+        <result property="imageNumber" column="image_number" jdbcType="VARCHAR"/>
+        <result property="imageWidth" column="image_width" jdbcType="VARCHAR"/>
+        <result property="imageHeight" column="image_height" jdbcType="VARCHAR"/>
+        <result property="imageStorePath" column="image_store_path" jdbcType="VARCHAR"/>
+        <result property="requestPath" column="request_path" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectById" resultType="com.dhm.model.FileStoreMgrEntity">
+        select * from paas_file_store_entity where id=#{id}
+    </select>
+
+
+    <insert id="insert" parameterType="com.dhm.model.FileCacheInfoEntity">
+        insert into paas_file_cache_info (
+        redis_key,
+        ip,
+        port,
+        store_path,
+        type,
+        file_name,
+        pdf_state,
+        image_state,
+        pdf_store_path,
+        watermark_state,
+        watermark_path,
+        image_number,
+        image_width,
+        image_height,
+        image_store_path,
+        request_path)
+    values (
+        #{redisKey,jdbcType=VARCHAR},
+        #{ip,jdbcType=INTEGER},
+        #{port,jdbcType=VARCHAR},
+        #{storePath,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR},
+        #{fileName,jdbcType=VARCHAR},
+        #{pdfState,jdbcType=VARCHAR},
+        #{imageState,jdbcType=VARCHAR},
+        #{pdfStorePath,jdbcType=VARCHAR},
+        #{watermarkState,jdbcType=VARCHAR},
+        #{watermarkPath,jdbcType=VARCHAR},
+        #{imageNumber,jdbcType=VARCHAR},
+        #{imageWidth,jdbcType=VARCHAR},
+        #{imageHeight,jdbcType=VARCHAR},
+        #{imageStorePath,jdbcType=VARCHAR},
+        #{requestPath,jdbcType=VARCHAR})
+
+    </insert>
+
+
+
+    <select id="selectByPath" resultMap="fileCacheInfoEntity">
+        select * from paas_file_cache_info where store_path=#{storePath}
+    </select>
+</mapper>
